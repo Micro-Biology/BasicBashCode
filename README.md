@@ -1,5 +1,5 @@
 # BasicBashCode
-basic BASH code for general programming
+Basic BASH code for general programming
 
 
 Bash shebang
@@ -25,15 +25,25 @@ While true loop:
         sleep 60;
     done
     
+While loop:
 
-For loop:
+    while (i > 10) :
+    do
+        #<code to perform when $i is less than 10 eg as below>;
+        echo "$i" #will count from 1 to 10
+        i=$((i + 1)); #alternatively "((i++))" will +1 to i and is technically quicker but isn't as readable
+    done
+
+For loop file maniplulation:
 
     for f in *.txt ; do
         <code manipulating $f>
         echo "file $f manipulated"
     done
     
-    for i in {1..10} ; do
-        <code to reproduce 10 times>
-        
+For loop code so many times: (the same as while loop with i)
+    
+    for v in {1..10..2} ; do
+        #<code to reproduce 5 times in increments of 2 eg below>;
+        echo "$v" #will count 1 3 5 7 9
     done
