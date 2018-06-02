@@ -48,11 +48,10 @@ For loop code so many times: (the same as while loop with i)
         echo "$v" #will count 1 3 5 7 9
     done
 
-Prompts user to continue yes or no?:
+Prompts user to continue yes or no?: (for example this scipt converts all .biom files to TSV files)
 
-    printf "\033[1;34m This script converts all .biom files in the current directory to the .tsv format \e[0m\n"
-    read -p "Are you sure you want to do this? " -n 1 -r
-    echo    # (optional) move to a new line
+    read -p "Are you sure you want to do this? " -n 1 -r #accepts first character if thats a y then it does the script
+    echo    #creates new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
         for f in *.biom ; do
