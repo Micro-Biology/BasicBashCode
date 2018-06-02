@@ -45,6 +45,8 @@ For loop code so many times: (the same as while loop with i)
     
     for v in {1..10..2} ; do
         #<code to reproduce 5 times in increments of 2 eg below>;
+        #This would be useful if for example you wanted to count how 
+        #many samples there was if each sample was represented by 2 fastq files
         echo "$v" #will count 1 3 5 7 9
     done
 
