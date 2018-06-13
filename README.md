@@ -52,7 +52,8 @@ For loop code so many times: (the same as while loop with i)
 
 Prompts user to continue yes or no?: (for example this scipt converts all .biom files to TSV files)
 
-    read -p "Are you sure you want to do this? " -n 1 -r #accepts first character if thats a y then it does the script
+    read -p "Are you sure you want to do this? " -n 1 -r 
+    #accepts first character if thats a y then it does the script
     echo    #creates new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
