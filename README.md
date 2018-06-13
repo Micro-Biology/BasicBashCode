@@ -5,9 +5,9 @@ Basic BASH code for general programming
 Bash shebang
 
     #!/bin/bash
-    set -e
-    set -u
-    set -o pipefail
+    set -e #Stops scripts at first error
+    set -u #Stops script if a variable is unset
+    set -o pipefail #Prevents errors in a pipeline being masked
     
 Better text printing
 
@@ -38,6 +38,7 @@ While true loop:
     
 While loop:
 
+    i=1
     while (i > 10) :
     do
         #<code to perform when $i is less than 10 eg as below>;
