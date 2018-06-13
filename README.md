@@ -67,4 +67,5 @@ Prompts user to continue yes or no?: (for example this scipt converts all .biom 
 Prints how long the script took to execute (strictly speaking its how long the terminal has been open when printed so be careful
     
     secs=$SECONDS
-    printf "\033[1;34m Analysis completed in %dh:%dm:%ds\n \e[0m\n" $(($secs/3600)) $(($secs%3600/60)) $(($secs%60))
+    printf "\033[1;34m Analysis completed in %dh:%dm:%ds\n \e[0m\n" \
+    $(($secs/3600)) $(($secs%3600/60)) $(($secs%60))
