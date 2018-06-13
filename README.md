@@ -9,9 +9,20 @@ Bash shebang
     set -u
     set -o pipefail
     
-Nicer text use printf (this colour is blue)
+Better text printing
 
-    printf "\033[1;34m Text Here \e[0m\n"
+    printf "This prints this text and then a new line \n"
+    printf "\033[1;34m This text is blue \e[0m\n"
+    printf "$red" "This only works if you have the below lines in your ./bashrc"
+    
+printf colour alias
+
+    red='\e[1;31m%s\e[0m\n' 
+    green='\e[1;32m%s\e[0m\n' 
+    yellow='\e[1;33m%s\e[0m\n' 
+    blue='\e[1;34m%s\e[0m\n'  
+    magenta='\e[1;35m%s\e[0m\n' 
+    cyan='\e[1;36m%s\e[0m\n'
 
 Make directory 'dir' if it doesn't exist:
 
