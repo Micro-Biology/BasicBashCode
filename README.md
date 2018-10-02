@@ -24,6 +24,12 @@ printf colour alias
     magenta='\e[1;35m%s\e[0m\n' 
     cyan='\e[1;36m%s\e[0m\n'
 
+Any time you need to get todays date
+
+    "$(date +%Y%m%d-%H%M%S)"
+    mkdir "$(date +%Y%m%d-%H%M%S)" #directory with todays date
+    zip "$(date +%Y%m%d-%H%M%S)".zip Archive #makes a zip of the folder Archive named todaysdate.zip
+
 Make directory 'dir' if it doesn't exist:
 
     [[ -d dir ]] || mkdir dir
@@ -117,7 +123,7 @@ Fastq to Fasta:
 
     for samples in *.fastq; do awk 'NR%4==1 || NR%4==2' "$samples" > "$samples.fasta"; done
 
-Rename files (bit more elegent than move):
+Rename files (bit more elegent than move) when used in for loops:
 
     rename "s/.oldprefix/.newprefix/g" *
     
