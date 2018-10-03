@@ -31,6 +31,6 @@ cp ~/*.sh $PWD
 cp ~/Scripts/* $PWD
 
 
-cd .. && zip HomeScripts.zip HomeScripts/* && rm -r HomeScripts
+cd .. && zip -r HomeScripts.zip HomeScripts && rm -r HomeScripts
 
 printf "\033[1;34m Backup Complete \e[0m\n"
