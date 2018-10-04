@@ -3,13 +3,13 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 
 ## Contents
 
-- [Text](#Text)
+- [Printf](#Printf)
 - [Directories](#Directories)
 - [Loops](#Loops)
 - [Time](#Time)
 - [VirtualBox](#VirtualBox)
 
-Bash shebang
+Goto Bash shebang:
 
     #!/bin/bash
     set -e #Stops scripts at first error
@@ -21,15 +21,15 @@ Launches System monitor and continues with the rest of the script:
 
 [[back to top](#contents)]
 
-## Text
+## Printf
 
-Better text printing
+Better text printing:
 
     printf "This prints this text and then a new line \n"
     printf "\033[1;34m This text is blue \e[0m\n"
     printf "$red" "This only works if you have the below lines in your ./bashrc"
     
-printf colour alias
+printf colour alias:
 
     red='\e[1;31m%s\e[0m\n' 
     green='\e[1;32m%s\e[0m\n' 
@@ -40,9 +40,22 @@ printf colour alias
 
 [[back to top](#contents)]
 
+## File Manipulation
+
+Replace all occurences of StringA with StringB in a text file:
+
+    sed 's/StringA/StringB/g' file.txt
+
+Rename files (bit more elegent than move) when used in for loops:
+
+    rename "s/.oldprefix/.newprefix/g" *
+
+
+[[back to top](#contents)]
+
 ## Directories
 
-Find and go to Unusual_Dir
+Find and go to Unusual_Dir:
 
 cd "$find ~/location_to_search -name "Unusual_Dir" -printf '%h' -quit)"
 
@@ -50,7 +63,7 @@ Make directory 'dir' if it doesn't exist:
 
     [[ -d dir ]] || mkdir dir
     
-Set newest made directory as the value for variable 'new'
+Set newest made directory as the value for variable 'new':
 
     new=$(ls -td -- */ | head -n 1 | cut -d'/' -f1)
 
@@ -194,18 +207,29 @@ Above within a whie true loop
 
 ## General bioinformatics
 
+### Format changes
+
 Calculate mean sequence length in fastq file:
 
     awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' input.fastq
 
 Fastq to Fasta:
 
-    for samples in *.fastq; do awk 'NR%4==1 || NR%4==2' "$samples" > "$samples.fasta"; done
+    for f in *.fastq; do s=$(sed -e "s/.fastq/""/" <<< "$f") ; sed -n '1~4s/^@/>/p;2~4p' $f > $s.fasta; done
 
-Rename files (bit more elegent than move) when used in for loops:
+Gives general information about a fastq file: # want to format this better:
 
-    rename "s/.oldprefix/.newprefix/g" *
-    
+    cat test.fastq | awk '((NR-2)%4==0){read=$1;total++;count[read]++}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total}'
+
+Output sequence name and length for fasta file:
+
+    for f in *.fasta; do s=$(sed -e "s/.fasta/""/" <<< "$f") ; cat $f | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > $s.int.txt ; awk 'NR>1' $s.int.txt > $s.txt && rm $s.int.txt ; done
+
+Retain just sequences from fastq:
+
+    awk '{if(NR%4==2) print $0}' test.fastq > .txt
+
+### Qiime1 prep
 
 Change fasta header to sequence number in that sample:
 
@@ -232,16 +256,59 @@ Folding fasta file for qiime clustering pipeline:
 
     fold -w 60 allsamples.fasta > readyForClustering.allsamples.fasta
 
+### Multithreading of single threaded workflows
+
 Running code in parallel that doesnt have the option to do so: (DO NOT USE FOR CLUSTERING DE NOVO)
 
     ls *.fastq.gz | parallel -j 4 --no-notice 'cutadapt -e 0.1 -b ATGCGTTGGAGAGARCGTTTC -b GATCACCTTCTAATTTACCWACAACTG -o {}.trimmed.fastq.gz {}'
 
-Another way of doing the above that works better with blast
+Another way of doing the above that works better with blast:
 
     cat repset.fasta | parallel --block 100k --recstart '>' --gnu --pipe blastn -db diatoms -task blastn -max_target_seqs 1 -outfmt 6 -evalue 0.01 -query - > repset.diatoms.blastn
 
-Retain just sequences from in.fastq
-
-    awk '{if(NR%4==2) print $0}' in.fastq > out.txt
-
 [[back to top](#contents)]
+
+## bashrc additions:
+
+Extract feature
+    extract () {
+       if [ -f $1 ] ; then
+           case $1 in
+            *.tar.bz2)      tar xvjf $1 ;;
+            *.tar.gz)       tar xvzf $1 ;;
+            *.tar.xz)       tar Jxvf $1 ;;
+            *.bz2)          bunzip2 $1 ;;
+            *.rar)          unrar x $1 ;;
+            *.gz)           gunzip $1 ;;
+            *.tar)          tar xvf $1 ;;
+            *.tbz2)         tar xvjf $1 ;;
+            *.tgz)          tar xvzf $1 ;;
+            *.zip)          unzip $1 ;;
+            *.Z)            uncompress $1 ;;
+            *.7z)           7z x $1 ;;
+            *)              echo "don't know how to extract '$1'..." ;;
+           esac
+       else
+           echo "'$1' is not a valid file!"
+       fi
+    }
+
+Colour alias for print f:
+
+    #printf colour alias, use as below
+    red='\e[1;31m%s\e[0m\n'
+    green='\e[1;32m%s\e[0m\n'
+    yellow='\e[1;33m%s\e[0m\n'
+    blue='\e[1;34m%s\e[0m\n'
+    magenta='\e[1;35m%s\e[0m\n'
+    cyan='\e[1;36m%s\e[0m\n'
+
+    #printf "$green"   "This is a test in green"
+    #printf "$red"     "This is a test in red"
+    #printf "$yellow"  "This is a test in yellow"
+    #printf "$blue"    "This is a test in blue"
+    #printf "$magenta" "This is a test in magenta"
+    #printf "$cyan"    "This is a test in cyan"
+
+
+

@@ -24,11 +24,11 @@ while [ -d $Dir ]; do
 done
 mkdir $Dir ; cd $Dir
 
-mkdir HomeScripts && cd HomeScripts
+mkdir HomeScripts && cd HomeScripts && mkdir Scripts
 
 #Copy files to $PWD
 cp ~/*.sh $PWD
-cp ~/Scripts/* $PWD
+cp ~/Scripts/* $PWD/Scripts
 
 
 cd .. && zip -r HomeScripts.zip HomeScripts && rm -r HomeScripts
