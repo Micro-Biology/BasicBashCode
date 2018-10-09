@@ -4,10 +4,17 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 ## Contents
 
 - [Printf](#Printf)
+- [File Manipulation](#File Manipulation)
 - [Directories](#Directories)
 - [Loops](#Loops)
 - [Time](#Time)
 - [VirtualBox](#VirtualBox)
+- [bashrc additions](#bashrc additions)
+
+- [General Bioinformatics](#General Bioinformatics)
+- [Format changes](#Format changes)
+- [Qiime 1 prep](#Qiime 1 prep)
+- [Multithreading of single threaded workflows](#Multithreading of single threaded workflows)
 
 Goto Bash shebang:
 
@@ -19,7 +26,7 @@ Goto Bash shebang:
 Launches System monitor and continues with the rest of the script:
     gnome-system-monitor &
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
 ## Printf
 
@@ -38,7 +45,7 @@ printf colour alias:
     magenta='\e[1;35m%s\e[0m\n' 
     cyan='\e[1;36m%s\e[0m\n'
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
 ## File Manipulation
 
@@ -50,8 +57,16 @@ Rename files (bit more elegent than move) when used in for loops:
 
     rename "s/.oldprefix/.newprefix/g" *
 
+Check to see if it's a regular file
 
-[[back to top](#contents)]
+    [ -f "/you/file.file" ] && echo 1 || echo 0
+
+Check to see if a file exists
+
+    [ -e "/you/file.file" ] && echo 1 || echo 0
+
+
+[[back to top](#Contents)]
 
 ## Directories
 
@@ -67,7 +82,7 @@ Set newest made directory as the value for variable 'new':
 
     new=$(ls -td -- */ | head -n 1 | cut -d'/' -f1)
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
 ## Loops
 
@@ -138,7 +153,7 @@ Prompts user to continue yes or no?: (for example this scipt converts all .biom 
         done
     fi
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
 ## Time
 
@@ -154,7 +169,7 @@ Any time you need to get todays date
     mkdir "$(date +%Y%m%d-%H%M%S)" #directory with todays date
     zip "$(date +%Y%m%d-%H%M%S)".zip Archive #makes a zip of the folder Archive named todaysdate.zip    
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
 ## VirtualBox
 
@@ -203,72 +218,9 @@ Above within a whie true loop
               fi
     done
 
-[[back to top](#contents)]
+[[back to top](#Contents)]
 
-## General bioinformatics
-
-### Format changes
-
-Calculate mean sequence length in fastq file:
-
-    awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' input.fastq
-
-Fastq to Fasta:
-
-    for f in *.fastq; do s=$(sed -e "s/.fastq/""/" <<< "$f") ; sed -n '1~4s/^@/>/p;2~4p' $f > $s.fasta; done
-
-Gives general information about a fastq file: # want to format this better:
-
-    cat test.fastq | awk '((NR-2)%4==0){read=$1;total++;count[read]++}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total}'
-
-Output sequence name and length for fasta file:
-
-    for f in *.fasta; do s=$(sed -e "s/.fasta/""/" <<< "$f") ; cat $f | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > $s.int.txt ; awk 'NR>1' $s.int.txt > $s.txt && rm $s.int.txt ; done
-
-Retain just sequences from fastq:
-
-    awk '{if(NR%4==2) print $0}' test.fastq > .txt
-
-### Qiime1 prep
-
-Change fasta header to sequence number in that sample:
-
-    for samples in *.fasta ; do
-	    cat $samples | perl -ane 'if(/\>/){$a++;print ">_$a\n"}else{print;}' > "$samples.ordered"
-    done
-
-    rm *.fasta
-
-    rename "s/.fasta.ordered/.fasta/g" *
-
-    for samples in *.fasta ; do
-    	awk '/>/{sub(">","&"FILENAME"");sub(/\.fasta/,x)}1' $samples > "$samples.named"
-    done
-
-    rm *.fasta
-    rename "s/.named/.fasta/g" *
-
-Combining Sequences for clustering:
-
-    cat *.fasta > allsamples.fasta
-
-Folding fasta file for qiime clustering pipeline:
-
-    fold -w 60 allsamples.fasta > readyForClustering.allsamples.fasta
-
-### Multithreading of single threaded workflows
-
-Running code in parallel that doesnt have the option to do so: (DO NOT USE FOR CLUSTERING DE NOVO)
-
-    ls *.fastq.gz | parallel -j 4 --no-notice 'cutadapt -e 0.1 -b ATGCGTTGGAGAGARCGTTTC -b GATCACCTTCTAATTTACCWACAACTG -o {}.trimmed.fastq.gz {}'
-
-Another way of doing the above that works better with blast:
-
-    cat repset.fasta | parallel --block 100k --recstart '>' --gnu --pipe blastn -db diatoms -task blastn -max_target_seqs 1 -outfmt 6 -evalue 0.01 -query - > repset.diatoms.blastn
-
-[[back to top](#contents)]
-
-## bashrc additions:
+## bashrc additions
 
 Extract feature
     extract () {
@@ -310,5 +262,97 @@ Colour alias for print f:
     #printf "$magenta" "This is a test in magenta"
     #printf "$cyan"    "This is a test in cyan"
 
+cd alias
 
+    alias ..='cd ..'
+    alias ...='cd ..; cd..'
+    alias ....='cd ..; cd ..; cd ..'
+    alias .....='cd ..; cd ..; cd ..; cd ..'
+    alias ......='cd ..; cd ..; cd ..; cd ..; cd ..'
+
+cd and list
+
+    cdls() {
+        builtin cd "$@" && ls
+    }
+
+Repeat last command as sudo
+
+    alias pls='sudo (!!)'
+
+Send to Recycling bin
+
+    #Requires trash-cli, install using: sudo apt-get install trash-cli
+    alias del='trash'
+
+
+[[back to top](#Contents)]
+
+
+## General Bioinformatics
+
+### Format changes
+
+Calculate mean sequence length in fastq file:
+
+    awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' input.fastq
+
+Fastq to Fasta:
+
+    for f in *.fastq; do s=$(sed -e "s/.fastq/""/" <<< "$f") ; sed -n '1~4s/^@/>/p;2~4p' $f > $s.fasta; done
+
+Gives general information about a fastq file: # want to format this better:
+
+    cat test.fastq | awk '((NR-2)%4==0){read=$1;total++;count[read]++}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total}'
+
+Output sequence name and length for fasta file:
+
+    for f in *.fasta; do s=$(sed -e "s/.fasta/""/" <<< "$f") ; cat $f | awk '$0 ~ ">" {print c; c=0;printf substr($0,2,100) "\t"; } $0 !~ ">" {c+=length($0);} END { print c; }' > $s.int.txt ; awk 'NR>1' $s.int.txt > $s.txt && rm $s.int.txt ; done
+
+Retain just sequences from fastq:
+
+    awk '{if(NR%4==2) print $0}' test.fastq > .txt
+
+[[back to top](#Contents)]
+
+### Qiime1 prep
+
+Change fasta header to sequence number in that sample:
+
+    for samples in *.fasta ; do
+	    cat $samples | perl -ane 'if(/\>/){$a++;print ">_$a\n"}else{print;}' > "$samples.ordered"
+    done
+
+    rm *.fasta
+
+    rename "s/.fasta.ordered/.fasta/g" *
+
+    for samples in *.fasta ; do
+    	awk '/>/{sub(">","&"FILENAME"");sub(/\.fasta/,x)}1' $samples > "$samples.named"
+    done
+
+    rm *.fasta
+    rename "s/.named/.fasta/g" *
+
+Combining Sequences for clustering:
+
+    cat *.fasta > allsamples.fasta
+
+Folding fasta file for qiime clustering pipeline:
+
+    fold -w 60 allsamples.fasta > readyForClustering.allsamples.fasta
+
+[[back to top](#Contents)]
+
+### Multithreading of single threaded workflows
+
+Running code in parallel that doesnt have the option to do so: (DO NOT USE FOR CLUSTERING DE NOVO)
+
+    ls *.fastq.gz | parallel -j 4 --no-notice 'cutadapt -e 0.1 -b ATGCGTTGGAGAGARCGTTTC -b GATCACCTTCTAATTTACCWACAACTG -o {}.trimmed.fastq.gz {}'
+
+Another way of doing the above that works better with blast:
+
+    cat repset.fasta | parallel --block 100k --recstart '>' --gnu --pipe blastn -db diatoms -task blastn -max_target_seqs 1 -outfmt 6 -evalue 0.01 -query - > repset.diatoms.blastn
+
+[[back to top](#Contents)]
 
