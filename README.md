@@ -4,17 +4,17 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 ## Contents
 
 - [Printf](#Printf)
-- [File Manipulation](#File Manipulation)
+- [File Manipulation](#File_Manipulation)
 - [Directories](#Directories)
 - [Loops](#Loops)
 - [Time](#Time)
 - [VirtualBox](#VirtualBox)
-- [bashrc additions](#bashrc additions)
+- [bashrc additions](#bashrc_additions)
 
-- [General Bioinformatics](#General Bioinformatics)
-- [Format changes](#Format changes)
-- [Qiime 1 prep](#Qiime 1 prep)
-- [Multithreading of single threaded workflows](#Multithreading of single threaded workflows)
+- [General Bioinformatics](#General_Bioinformatics)
+- [Format changes](#Format_Changes)
+- [Qiime 1 prep](#Qiime1_Prep)
+- [Multithreading of single threaded workflows](#Multithreading)
 
 Goto Bash shebang:
 
@@ -47,7 +47,7 @@ printf colour alias:
 
 [[back to top](#Contents)]
 
-## File Manipulation
+## File_Manipulation
 
 Replace all occurences of StringA with StringB in a text file:
 
@@ -220,7 +220,7 @@ Above within a whie true loop
 
 [[back to top](#Contents)]
 
-## bashrc additions
+## bashrc_additions
 
 Extract feature
     extract () {
@@ -289,9 +289,9 @@ Send to Recycling bin
 [[back to top](#Contents)]
 
 
-## General Bioinformatics
+## General_Bioinformatics
 
-### Format changes
+### Format_Changes
 
 Calculate mean sequence length in fastq file:
 
@@ -315,7 +315,7 @@ Retain just sequences from fastq:
 
 [[back to top](#Contents)]
 
-### Qiime1 prep
+### Qiime1_Prep
 
 Change fasta header to sequence number in that sample:
 
@@ -344,7 +344,7 @@ Folding fasta file for qiime clustering pipeline:
 
 [[back to top](#Contents)]
 
-### Multithreading of single threaded workflows
+### Multithreading
 
 Running code in parallel that doesnt have the option to do so: (DO NOT USE FOR CLUSTERING DE NOVO)
 
