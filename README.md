@@ -17,6 +17,7 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 - [Qiime 1 prep](#Qiime1_Prep)
 - [Multithreading of single threaded workflows](#Multithreading)
 
+
 ## <a name="To_Start"></a>To Start
 
 Goto Bash shebang:
@@ -31,7 +32,8 @@ Launches System monitor and continues with the rest of the script:
 
 [[back to top](#Contents)]
 
-## Printf
+
+## <a name="Printf"></a>Printf
 
 Better text printing:
 
@@ -50,7 +52,8 @@ printf colour alias:
 
 [[back to top](#Contents)]
 
-## File_Manipulation
+
+## <a name="File_Manipulation"></a>File_Manipulation
 
 Replace all occurences of StringA with StringB in a text file:
 
@@ -71,7 +74,8 @@ Check to see if a file exists
 
 [[back to top](#Contents)]
 
-## Directories
+
+## <a name="Directories"></a>Directories
 
 Find and go to Unusual_Dir:
 
@@ -87,7 +91,8 @@ Set newest made directory as the value for variable 'new':
 
 [[back to top](#Contents)]
 
-## Loops
+
+## <a name="Loops"></a>Loops
 
 While true loop:
 
@@ -158,7 +163,8 @@ Prompts user to continue yes or no?: (for example this scipt converts all .biom 
 
 [[back to top](#Contents)]
 
-## Time
+
+## <a name="Time"></a>Time
 
 Prints how long the script took to execute (strictly speaking its how long the terminal has been open when printed so be careful
     
@@ -174,7 +180,8 @@ Any time you need to get todays date
 
 [[back to top](#Contents)]
 
-## VirtualBox
+
+## <a name="VirtualBox"></a>VirtualBox
 
 Install Virtual Box on Linux Host
 
@@ -223,7 +230,8 @@ Above within a whie true loop
 
 [[back to top](#Contents)]
 
-## bashrc_additions
+
+## <a name="bashrc_additions"></a>bashrc_additions
 
 Extract feature
     extract () {
@@ -288,13 +296,12 @@ Send to Recycling bin
     #Requires trash-cli, install using: sudo apt-get install trash-cli
     alias del='trash'
 
-
 [[back to top](#Contents)]
 
 
-## General_Bioinformatics
+## <a name="General_Bioinformatics"></a>General_Bioinformatics
 
-### Format_Changes
+### <a name="Format_Changes"></a>Format_Changes
 
 Calculate mean sequence length in fastq file:
 
@@ -318,7 +325,7 @@ Retain just sequences from fastq:
 
 [[back to top](#Contents)]
 
-### Qiime1_Prep
+### <a name="Qiime1_prep"></a>Qiime1_prep
 
 Change fasta header to sequence number in that sample:
 
@@ -347,7 +354,7 @@ Folding fasta file for qiime clustering pipeline:
 
 [[back to top](#Contents)]
 
-### Multithreading
+### <a name="Multithreading"></a>Multithreading
 
 Running code in parallel that doesnt have the option to do so: (DO NOT USE FOR CLUSTERING DE NOVO)
 
