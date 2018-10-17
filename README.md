@@ -17,7 +17,7 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 - [Qiime 1 prep](#Qiime1_Prep)
 - [Multithreading of single threaded workflows](#Multithreading)
 
-# <a name="To_Start"></a>To Start
+## <a name="To_Start"></a>To Start
 
 Goto Bash shebang:
 
