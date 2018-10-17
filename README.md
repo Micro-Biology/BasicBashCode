@@ -3,7 +3,7 @@ Basic code for general programming, scripts in the Scripts folder should have ex
 
 ## <a name="Contents"></a>Contents
 
-- [To_Start](#To_Start)
+- [To Start](#To_Start)
 - [Printf](#Printf)
 - [File Manipulation](#File_Manipulation)
 - [Directories](#Directories)
@@ -53,7 +53,7 @@ printf colour alias:
 [[back to top](#Contents)]
 
 
-## <a name="File_Manipulation"></a>File_Manipulation
+## <a name="File_Manipulation"></a>File Manipulation
 
 Replace all occurences of StringA with StringB in a text file:
 
@@ -231,7 +231,7 @@ Above within a whie true loop
 [[back to top](#Contents)]
 
 
-## <a name="bashrc_additions"></a>bashrc_additions
+## <a name="bashrc_additions"></a>bashrc additions
 
 Extract feature
     extract () {
@@ -299,9 +299,9 @@ Send to Recycling bin
 [[back to top](#Contents)]
 
 
-## <a name="General_Bioinformatics"></a>General_Bioinformatics
+## <a name="General_Bioinformatics"></a>General Bioinformatics
 
-### <a name="Format_Changes"></a>Format_Changes
+### <a name="Format_Changes"></a>Format Changes
 
 Calculate mean sequence length in fastq file:
 
@@ -325,7 +325,7 @@ Retain just sequences from fastq:
 
 [[back to top](#Contents)]
 
-### <a name="Qiime1_prep"></a>Qiime1_prep
+### <a name="Qiime_1_prep"></a>Qiime1 Prep
 
 Change fasta header to sequence number in that sample:
 
