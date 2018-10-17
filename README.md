@@ -1,7 +1,7 @@
 # BasicBashCode
 Basic code for general programming, scripts in the Scripts folder should have explanations of what they are and how to use them.
 
-## Contents
+## <a name="Contents"></a>Contents
 
 - [To_Start](#To_Start)
 - [Printf](#Printf)
