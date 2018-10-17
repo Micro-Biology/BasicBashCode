@@ -325,7 +325,7 @@ Retain just sequences from fastq:
 
 [[back to top](#Contents)]
 
-### <a name="Qiime_1_prep"></a>Qiime1 Prep
+### <a name="Qiime1_Prep"></a>Qiime1 Prep
 
 Change fasta header to sequence number in that sample:
 
