@@ -289,7 +289,7 @@ cd and list
 
 Repeat last command as sudo
 
-    alias pls='sudo (!!)'
+    alias pls='sudo $(history -p !!)'
 
 Send to Recycling bin
 
