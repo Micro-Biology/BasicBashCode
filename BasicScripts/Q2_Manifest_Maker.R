@@ -11,14 +11,20 @@
 
     #conda create -n R-Env r-essentials -y
 
-    #source activate R-Env
+    #conda activate R-Env
 
     #conda install -c r r-tidyverse -y
 
-    #conda install -c r r-gdata -y
-
 
 #Information and potentially support available here: https://forum.qiime2.org/t/automatic-manifest-maker-in-r/2921
+
+#To use script navigate to your working directory, add the fastq.gz files to a directory called Data, activate your R environment:
+
+    #conda activate R-Env
+
+#Run the script:
+
+    #Rscript ./Q2_Manifest_Maker.R
 
 #Actual Script
 
