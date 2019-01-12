@@ -303,6 +303,10 @@ Send to Recycling bin
 
 ### <a name="Format_Changes"></a>Format Changes
 
+Gives the number of lines in a test file: (for fastq /4 and fasta /2 and you get number of reads, if you get a float then soemthing has gone wrong)
+
+    wc -l file
+
 Calculate mean sequence length in fastq file:
 
     awk 'NR%4==2{sum+=length($0)}END{print sum/(NR/4)}' input.fastq
