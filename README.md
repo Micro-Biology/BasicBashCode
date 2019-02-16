@@ -330,6 +330,17 @@ Retain just sequences from fastq:
 
     awk '{if(NR%4==2) print $0}' test.fastq > .txt
 
+Merge replicate fastq files: (replicates given prefix 'rep-')
+
+    for f in rep-* ; do
+    	o=$(sed -e "s/rep-/""/" <<< "$f")
+    	cat $f $o > all-$o
+    	echo "file $f manipulated"
+    	rm $f
+    	rm $o
+    	mv all-$o $o
+    done
+
 [[back to top](#Contents)]
 
 ### <a name="Qiime1_Prep"></a>Qiime1 Prep
