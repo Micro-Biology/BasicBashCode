@@ -334,11 +334,9 @@ Merge replicate fastq files: (replicates given prefix 'rep-')
 
     for f in rep-* ; do
     	o=$(sed -e "s/rep-/""/" <<< "$f")
-    	cat $f $o > all-$o
-    	echo "file $f manipulated"
-    	rm $f
-    	rm $o
-    	mv all-$o $o
+    	cat $f $o > all-$o && \
+    	echo "file $f manipulated" && \
+    	rm $f && rm $o && mv all-$o $o
     done
 
 [[back to top](#Contents)]
