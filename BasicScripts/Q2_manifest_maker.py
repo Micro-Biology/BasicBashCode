@@ -22,7 +22,7 @@
     #pip install Send2Trash (probably not the best way to do this...)
 
 
-#Information and potentially support available here: pending...
+#Information and potentially support available here: https://forum.qiime2.org/t/automatic-manifest-maker-in-python3/8595
 
 #To use script:
 
