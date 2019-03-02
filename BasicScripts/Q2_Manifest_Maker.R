@@ -1,3 +1,5 @@
+#This is now obsolete and I will not be updating it please see Q2_manifest_maker.py for making your own manifest.csv for qiime 2
+
 #Q2ManifestMaker
 #Here I present my tutorial for making a QIIME2 ‘Manifest.csv’ automatically using an R conda environment, to be used to import data according to the " “Fastq manifest” formats" part of the Importing data tutorial, on the QIIME2 website. 
 
