@@ -43,12 +43,6 @@ import glob
 import os
 import send2trash
 
-#Use:
-
-#Put file in path and navigate to your working directory
-#python ./Q2_Man.py --input_dir <data_directory>
-
-
 #Class Objects
 
 class FormatError(Exception):
