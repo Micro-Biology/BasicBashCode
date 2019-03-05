@@ -128,7 +128,7 @@ def get_file_list(directory):
 
 def get_args():
     parser = argparse.ArgumentParser(description="Makes a manifest file for importin into qiime2.")
-    parser.add_argument("--input_dir", help="Essential: Input directory for samples.", default="info.xlsx", required=True)
+    parser.add_argument("--input_dir", help="Essential: Input directory for samples.", required=True)
     args = parser.parse_args()
     return args
 
