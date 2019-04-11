@@ -234,6 +234,7 @@ Above within a whie true loop
 ## <a name="bashrc_additions"></a>bashrc additions
 
 Extract feature
+
     extract () {
        if [ -f $1 ] ; then
            case $1 in
