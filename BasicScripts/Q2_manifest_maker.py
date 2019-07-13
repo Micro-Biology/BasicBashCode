@@ -5,11 +5,27 @@ import glob
 import os
 import send2trash
 
-#Use:
+script_info = ("""
 
-#Put file in path and navigate to your working directory
-#python ./q2_manifest_maker.py --input_dir <data_directory>
+Script to make a Manifest.csv file for importing fastq.gz files into a qiime 2 environment.
 
+  To Install:
+    Open Qiime2 conda environment
+    Install python package "send2trash" using: pip install send2trash
+    Put script in path and navigate to your working directory
+    python ./q2_manifest_maker.py --input_dir <data_directory>
+    
+    Acceptable formats include:
+    
+        <sampleid>.R1.fastq.gz
+        <sampleid>.R2.fastq.gz
+        
+    or
+    
+        <sampleid>_S6_L001_R1_001.fastq.gz
+        <sampleid>_S6_L001_R2_001.fastq.gz
+    
+""")
 
 #Class Objects
 
@@ -98,7 +114,7 @@ def get_file_list(directory):
     return file_paths_abs
 
 def get_args():
-    parser = argparse.ArgumentParser(description="Makes a manifest file for importin into qiime2.")
+    parser = argparse.ArgumentParser(description='''Script to make a Manifest.csv file for importing fastq.gz files into a qiime 2 environment.''')
     parser.add_argument("--input_dir", help="Essential: Input directory for samples.", required=True)
     args = parser.parse_args()
     return args
