@@ -383,3 +383,10 @@ Another way of doing the above that works better with blast:
 
 [[back to top](#Contents)]
 
+### <a name="Misc"></a>Misc
+
+Fix those USB sticks that wont let me write to them:
+
+    df -Th #work out where it is located eg /dev/sdb1
+    dosfsck -a /dev/sdb1
+
