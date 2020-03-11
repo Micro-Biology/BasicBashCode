@@ -119,6 +119,15 @@ For loop file maniplulation:
         echo "file $f manipulated"
     done
     
+For loop for combining fastq.gz files:
+    
+    for o in pt1_raw/*.fastq.gz ; do
+
+        n=$(sed -e "s/pt1_raw/pt3_raw/" <<< "$o")
+        c=$(sed -e "s/pt1_raw/combined/" <<< "$o")
+        cat $o $n > $c
+    done
+    
 For loop code so many times: (the same as while loop with i)
     
     for v in {1..10..2} ; do
